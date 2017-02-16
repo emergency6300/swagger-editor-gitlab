@@ -37,6 +37,7 @@ require('scripts/controllers/general-modal.js');
 require('scripts/controllers/header.js');
 require('scripts/controllers/import-file.js');
 require('scripts/controllers/importurl.js');
+require('scripts/controllers/import-gitlab.js');
 require('scripts/controllers/main.js');
 require('scripts/controllers/modal.js');
 require('scripts/controllers/openexamples.js');

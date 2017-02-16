@@ -1,0 +1,37 @@
+<div class="modal-header">
+  <h3 class="modal-title">Import From Gitlab</h3>
+</div>
+<div class="modal-body">
+  <div class="form-group">
+    <label for="token">Personal Access Token</label>
+    <input type="text" class="form-control" autofocus="true" ng-model="token" auto-focus="200">
+  </div>
+  <div class="form-group">
+    <label for="sha">SHA</label>
+    <input type="text" class="form-control" autofocus="true" ng-model="sha" auto-focus="200">
+  </div>
+  <div class="form-group">
+    <label for="projectid">Project ID</label>
+    <input type="text" class="form-control" autofocus="true" ng-model="projectid" auto-focus="200">
+  </div>
+  <div class="form-group">
+    <label for="sha">File Path</label>
+    <input type="text" class="form-control" autofocus="true" ng-model="filepath" auto-focus="200">
+  </div>
+  <div class="form-group">
+    <label for="url">Base URL</label>
+    <input type="text" class="form-control" autofocus="true" ng-model="baseurl" auto-focus="200">
+  </div>
+  <p class="error" ng-if="error">
+    <i class="fa fa fa-times"></i>
+    Error loading URL:
+    <pre ng-if="error">{{error | json}}</pre>
+  </p>
+  <p ng-if="fetching"><i class="fa fa-spinner fa-pulse"></i> Fetching</p>
+  <p class="can-import" ng-if="canImport"><i class="fa fa-check"></i> Valid URL</p>
+</div>
+<div class="modal-footer">
+  <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+  <button class="btn btn-warning" ng-click="fetch(baseurl, token, projectid, sha, filepath)">Fetch</button>
+  <button class="btn btn-primary" ng-click="ok()" ng-disabled="!canImport">Import</button>
+</div>

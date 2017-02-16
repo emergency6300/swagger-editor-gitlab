@@ -106,6 +106,14 @@ SwaggerEditor.controller('HeaderCtrl', function HeaderCtrl($scope, $uibModal,
     });
   };
 
+  $scope.openImportGitlab = function() {
+    $uibModal.open({
+      template: require('templates/gitlab-import.html'),
+      controller: 'GitlabImportCtrl',
+      size: 'large'
+    });
+  };
+
   $scope.openImportUrl = function() {
     $uibModal.open({
       template: require('templates/url-import.html'),

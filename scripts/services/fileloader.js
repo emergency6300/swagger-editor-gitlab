@@ -47,6 +47,46 @@ SwaggerEditor.service('FileLoader', function FileLoader($http, defaults, YAML) {
     });
   }
 
+   /**
+   * Load a file from Gitlab
+   *
+   * @param {string} url - the URL to load from
+   * @param {boolean} disableProxy - disables cors-it proxy
+   * @return {Promise} - resolves to content of the file
+  */
+  // function loadFromGitlab(url, disableProxy) {
+  //   return new Promise(function(resolve, reject) {
+  //     if (disableProxy === undefined) {
+  //       disableProxy = false;
+  //     }
+
+  //     // Temporarily use this service to get around non-CORSable URLs
+  //     if (_.startsWith(url, 'http') && !disableProxy) {
+  //       url = defaults.importProxyUrl + url;
+  //     }
+
+  //     $http({
+  //       method: 'GET',
+  //       url: url,
+  //       headers: {
+  //         accept: 'application/x-yaml,text/yaml,application/json,*/*'
+  //       }
+  //     }).then(function(resp) {
+  //       if (angular.isObject(resp.data)) {
+  //         YAML.dump(resp.data, function(error, yamlString) {
+  //           if (error) {
+  //             return reject(error);
+  //           }
+
+  //           resolve(yamlString);
+  //         });
+  //       } else {
+  //         load(resp.data).then(resolve, reject);
+  //       }
+  //     }, reject);
+  //   });
+  // }
+
   /**
    * takes a JSON or YAML string, returns YAML string
    *
