@@ -7,6 +7,8 @@ SwaggerEditor.controller('PreferencesCtrl', function PreferencesCtrl($scope,
   $scope.autoComplete = Preferences.get('autoComplete');
   $scope.pointerResolutionBasePath =
     Preferences.get('pointerResolutionBasePath');
+  $scope.gitlabBaseUrl = Preferences.get('gitlabBaseUrl');
+  $scope.gitlabToken = Preferences.get('gitlabToken');
 
   $scope.save = function() {
     var keyPressDebounceTime = parseInt($scope.keyPressDebounceTime, 10);
@@ -20,6 +22,8 @@ SwaggerEditor.controller('PreferencesCtrl', function PreferencesCtrl($scope,
     Preferences.set('autoComplete', $scope.autoComplete);
     Preferences.set('pointerResolutionBasePath',
       $scope.pointerResolutionBasePath);
+    Preferences.set('gitlabBaseUrl', $scope.gitlabBaseUrl);
+    Preferences.set('gitlabToken', $scope.gitlabToken);
 
     $uibModalInstance.close();
   };

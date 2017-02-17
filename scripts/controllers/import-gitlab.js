@@ -4,7 +4,7 @@ var _ = require('lodash');
 var angular = require('angular');
 
 SwaggerEditor.controller('GitlabImportCtrl', function FileImportCtrl($scope,
-  $uibModalInstance, $localStorage, $rootScope, $state, FileLoader, Storage) {
+  $uibModalInstance, $localStorage, $rootScope, $state, FileLoader, Storage, Preferences) {
   var results;
 
   $scope.baseurl = null;
@@ -17,13 +17,15 @@ SwaggerEditor.controller('GitlabImportCtrl', function FileImportCtrl($scope,
     useProxy: false
   };
 
-  var fetch = function(baseurl, token, projectid, sha, filepath) {
+  var fetch = function(projectid, sha, filepath) {
     $scope.error = null;
     $scope.canImport = false;
+    const baseurl = Preferences.get('gitlabBaseUrl');
+    const token = Preferences.get('gitlabToken');
 
     if (_.startsWith(baseurl, 'http')) {
       $scope.fetching = true;
-      var url = baseurl + "/api/projects/" + projectid + "/repository/blobs/" + sha + "?filepath=" + filepath;
+      var url = baseurl + "/api/v3/projects/" + projectid + "/repository/blobs/" + sha + "?filepath=" + filepath + "&private_token=" + token;
       FileLoader.loadFromUrl(url, !$scope.opts.useProxy).then(function(data) {
         $scope.$apply(function() {
           results = data;
