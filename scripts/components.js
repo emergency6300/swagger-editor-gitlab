@@ -14,6 +14,7 @@ require('scripts/services/ast-manager.js');
 require('scripts/services/auth-manager.js');
 require('scripts/services/autocomplete.js');
 require('scripts/services/backend.js');
+require('scripts/services/gitlab-backend.js');
 require('scripts/services/builder.js');
 require('scripts/services/codegen.js');
 require('scripts/services/editor.js');
