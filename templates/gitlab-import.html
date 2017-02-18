@@ -3,12 +3,12 @@
 </div>
 <div class="modal-body">
   <div class="form-group">
-    <label for="sha">SHA</label>
-    <input type="text" class="form-control" autofocus="true" ng-model="sha" auto-focus="200">
-  </div>
-  <div class="form-group">
     <label for="projectid">Project ID</label>
     <input type="text" class="form-control" autofocus="true" ng-model="projectid" auto-focus="200">
+  </div>
+  <div class="form-group">
+    <label for="ref">Ref</label>
+    <input type="text" class="form-control" autofocus="true" ng-model="ref" auto-focus="200">
   </div>
   <div class="form-group">
     <label for="sha">File Path</label>
@@ -24,6 +24,6 @@
 </div>
 <div class="modal-footer">
   <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
-  <button class="btn btn-warning" ng-click="fetch(projectid, sha, filepath)">Fetch</button>
+  <button class="btn btn-warning" ng-click="fetch(projectid, filepath, ref)">Fetch</button>
   <button class="btn btn-primary" ng-click="ok()" ng-disabled="!canImport">Import</button>
 </div>

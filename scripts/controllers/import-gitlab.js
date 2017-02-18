@@ -4,20 +4,21 @@ var _ = require('lodash');
 var angular = require('angular');
 
 SwaggerEditor.controller('GitlabImportCtrl', function FileImportCtrl($scope,
-  $uibModalInstance, $localStorage, $rootScope, $state, FileLoader, Storage, Preferences) {
+  $uibModalInstance, $localStorage,
+  $rootScope, $state, FileLoader, Storage, Preferences) {
   var results;
 
   $scope.baseurl = null;
   $scope.token = null;
   $scope.projectid = null;
-  $scope.sha = null;
+  $scope.ref = null;
   $scope.filepath = null;
   $scope.error = null;
   $scope.opts = {
     useProxy: false
   };
 
-  var fetch = function(projectid, sha, filepath) {
+  var fetch = function(projectid, filepath, ref) {
     $scope.error = null;
     $scope.canImport = false;
     const baseurl = Preferences.get('gitlabBaseUrl');
@@ -25,8 +26,10 @@ SwaggerEditor.controller('GitlabImportCtrl', function FileImportCtrl($scope,
 
     if (_.startsWith(baseurl, 'http')) {
       $scope.fetching = true;
-      var url = baseurl + "/api/v3/projects/" + projectid + "/repository/blobs/" + sha + "?filepath=" + filepath + "&private_token=" + token;
-      FileLoader.loadFromUrl(url, !$scope.opts.useProxy).then(function(data) {
+      var url = baseurl + "/api/v3/projects/" +
+      projectid + "/repository/files?file_path=" + filepath +
+      "&ref=" + ref + "&private_token=" + token;
+      FileLoader.loadFromGitlab(url).then(function(data) {
         $scope.$apply(function() {
           results = data;
           $scope.canImport = true;
