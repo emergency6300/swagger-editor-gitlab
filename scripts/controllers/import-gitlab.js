@@ -30,6 +30,7 @@ SwaggerEditor.controller('GitlabImportCtrl', function FileImportCtrl($scope,
       projectid + "/repository/files?file_path=" + filepath +
       "&ref=" + ref + "&private_token=" + token;
       FileLoader.loadFromGitlab(url).then(function(data) {
+        // get the file meta into local storage and use it to put commits
         $scope.$apply(function() {
           results = data;
           $scope.canImport = true;

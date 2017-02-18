@@ -63,15 +63,6 @@ SwaggerEditor.service('FileLoader', function FileLoader($http, defaults, YAML) {
         }
       }).then(function(resp) {
         if (angular.isObject(resp.data)) {
-          console.log(window.atob(resp.data.content));
-          YAML.dump(window.atob(resp.data.content), function(error, yamlString) {
-            if (error) {
-              return reject(error);
-            }
-
-            resolve(yamlString);
-          });
-        } else {
           load(window.atob(resp.data.content)).then(resolve, reject);
         }
       }, reject);
