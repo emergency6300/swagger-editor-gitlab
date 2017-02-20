@@ -111,5 +111,8 @@
     "test": "npm run unit-test && npm run e2e-test",
     "lint": "eslint . --format 'node_modules/eslint-friendly-formatter'",
     "gh-pages": "./gh-pages.sh"
+  },
+  "dependencies": {
+    "angular-tree-control": "^0.2.28"
   }
 }

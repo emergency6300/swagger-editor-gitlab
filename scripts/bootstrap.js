@@ -49,6 +49,9 @@ $(function() {
       $templateCache.put('templates/gitlab-import.html',
         require('templates/gitlab-import.html'));
 
+      $templateCache.put('templates/gitlab-update.html',
+        require('templates/gitlab-update.html'));
+
       $templateCache.put('templates/import.html',
         require('templates/import.html'));
 

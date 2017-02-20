@@ -1,6 +1,6 @@
 'use strict';
 
-var _ = require('lodash');
+// var _ = require('lodash');
 var angular = require('angular');
 
 SwaggerEditor.service('GLBackend', function GLBackend($http, $q, defaults,
@@ -8,12 +8,12 @@ SwaggerEditor.service('GLBackend', function GLBackend($http, $q, defaults,
   var changeListeners = {};
   /* eslint no-useless-escape: "off"*/
   // var absoluteRegex = /^(\/|http(s)?\:\/\/)/; // starts with slash or http|https
-  var buffer = {};
-  var throttleTimeout = defaults.backendThrottle || 200;
-  var commit = _.throttle(commitNow, throttleTimeout, {
-    leading: false,
-    trailing: true
-  });
+  // var buffer = {};
+  // var throttleTimeout = defaults.backendThrottle || 200;
+  // var commit = _.throttle(commitNow, throttleTimeout, {
+  //   leading: false,
+  //   trailing: true
+  // });
 
   // var backendEndpoint = defaults.backendEndpoint;
 
@@ -33,7 +33,8 @@ SwaggerEditor.service('GLBackend', function GLBackend($http, $q, defaults,
    * @param {object} data - data
   */
   function commitNow(url) {
-    save('progress', 'progress-saving');
+    // save('progress', 'progress-saving');
+    console.log(`commiting`);
 
     var httpConfig = {
       headers: {
@@ -55,28 +56,28 @@ SwaggerEditor.service('GLBackend', function GLBackend($http, $q, defaults,
    * @param {string} key - key
    * @param {string} value - value
   */
-  function save(key, value) {
-    // Save values in a buffer
-    buffer[key] = value;
+  // function save(key, value) {
+  //   // Save values in a buffer
+  //   buffer[key] = value;
 
-    if (Array.isArray(changeListeners[key])) {
-      changeListeners[key].forEach(function(fn) {
-        fn(value);
-      });
-    }
+  //   if (Array.isArray(changeListeners[key])) {
+  //     changeListeners[key].forEach(function(fn) {
+  //       fn(value);
+  //     });
+  //   }
 
-    if (key === 'yaml' && value) {
-      if (defaults.useYamlBackend) {
-        commit(value);
-      } else {
-        YAML.load(value, function(err, json) {
-          if (!err) {
-            commit(json);
-          }
-        });
-      }
-    }
-  }
+  //   if (key === 'yaml' && value) {
+  //     if (defaults.useYamlBackend) {
+  //       commit(value);
+  //     } else {
+  //       YAML.load(value, function(err, json) {
+  //         if (!err) {
+  //           commit(json);
+  //         }
+  //       });
+  //     }
+  //   }
+  // }
 
   /**
    * @param {string} key - key
@@ -126,7 +127,7 @@ SwaggerEditor.service('GLBackend', function GLBackend($http, $q, defaults,
   /** */
   function noop() {}
 
-  this.save = save;
+  // this.save = save;
   this.reset = noop;
   this.commitNow = commitNow;
   this.addChangeListener = addChangeListener;

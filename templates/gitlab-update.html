@@ -1,0 +1,19 @@
+<div class="modal-header">
+  <h3 class="modal-title">Commit to Gitlab</h3>
+</div>
+<div class="modal-body">
+  <div class="form-group">
+    <label for="commitMessage">Commit Message</label>
+    <textarea rows="4" cols="50" class="form-control" autofucus="true" ng-model="commitMessage">
+      At w3schools.com you will learn how to make a website. We offer free tutorials in all web development technologies. 
+    </textarea>
+  </div>
+  <p class="error" ng-if="error">
+    <i class="fa fa fa-times"></i> Error loading URL:
+    <pre ng-if="error">{{error | json}}</pre>
+  </p>
+</div>
+<div class="modal-footer">
+  <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+  <button class="btn btn-primary" ng-click="update(commitMessage)">Push</button>
+</div>
