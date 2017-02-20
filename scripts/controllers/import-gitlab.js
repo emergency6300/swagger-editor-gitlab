@@ -5,11 +5,12 @@ var angular = require('angular');
 
 SwaggerEditor.controller('GitlabImportCtrl', function FileImportCtrl($scope,
   $uibModalInstance, $localStorage,
-  $rootScope, $state, FileLoader, Storage, Preferences) {
+  $rootScope, $state, FileLoader, Storage, Preferences, $http) {
+  const baseurl = Preferences.get('gitlabBaseUrl');
+  const token = Preferences.get('gitlabToken');
+  const projectsUrl = baseurl + "/api/v3/projects?private_token=" + token;
   var results;
 
-  $scope.baseurl = null;
-  $scope.token = null;
   $scope.projectid = null;
   $scope.ref = null;
   $scope.filepath = null;
@@ -48,12 +49,22 @@ SwaggerEditor.controller('GitlabImportCtrl', function FileImportCtrl($scope,
     {name: "Ron", age: "29", children: []}
   ];
 
+  // Simple GET request example:
+  $http({
+    method: 'GET',
+    url: projectsUrl
+  }).then(function successCallback(response) {
+    $scope.items = _.map(response.data, function(project) {
+      return {name: project.name, id: project.id};
+    });
+    console.log($scope.items);
+  }, function errorCallback(response) {
+    console.log(response);
+  });
+
   var fetch = function(projectid, filepath, ref) {
     $scope.error = null;
     $scope.canImport = false;
-    const baseurl = Preferences.get('gitlabBaseUrl');
-    const token = Preferences.get('gitlabToken');
-
     if (_.startsWith(baseurl, 'http')) {
       $scope.fetching = true;
       var url = baseurl + "/api/v3/projects/" +

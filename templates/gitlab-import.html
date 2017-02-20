@@ -2,14 +2,14 @@
   <h3 class="modal-title">Import From Gitlab</h3>
 </div>
 <div class="modal-body">
-  <!-- as an attribute -->
-  <div treecontrol class="tree-classic" tree-model="dataForTheTree" options="treeOptions" on-selection="showSelected(node)"
+  <!--<div treecontrol class="tree-classic" tree-model="dataForTheTree" options="treeOptions" on-selection="showSelected(node)"
     selected-node="node1">
     employee: {{node.name}} age {{node.age}}
-  </div>
+  </div>-->
   <div class="form-group">
-    <label for="projectid">Project ID</label>
-    <input type="text" class="form-control" autofocus="true" value="1" ng-model="projectid" auto-focus="200">
+    <label for="selectedProject">Project</label>
+  <select class="form-control" ng-model="selectedProject" ng-options="item.name for item in items">
+  </select>
   </div>
   <div class="form-group">
     <label for="ref">Branch</label>
@@ -28,6 +28,6 @@
 </div>
 <div class="modal-footer">
   <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
-  <button class="btn btn-warning" ng-click="fetch(projectid, filepath, ref)">Fetch</button>
+  <button class="btn btn-warning" ng-click="fetch(selectedProject.id, filepath, ref)">Fetch</button>
   <button class="btn btn-primary" ng-click="ok()" ng-disabled="!canImport">Import</button>
 </div>
