@@ -9,7 +9,9 @@ $(function() {
   var embeddedDefaults = window.$$embeddedDefaults;
   var pathname = window.location.pathname;
 
-  if (!_.endsWith(pathname, '/')) {
+  if (_.endsWith(pathname, 'index.html')) {
+    pathname = pathname.slice(0, -10);
+  } else if (!_.endsWith(pathname, '/')) {
     pathname += '/';
   }
 

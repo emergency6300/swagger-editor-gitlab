@@ -4,6 +4,8 @@ var path = require('path');
 var webpack = require('webpack');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var NgAnnotatePlugin = require('ng-annotate-webpack-plugin');
+var HtmlWebpackPlugin = require('html-webpack-plugin');
+const {BaseHrefWebpackPlugin} = require('base-href-webpack-plugin');
 var argv = require('minimist')(process.argv.slice(2));
 var FONT_REGEX = /\.(ttf|eot|svg|woff|woff2|otf)(\?v=[0-9]\.[0-9]\.[0-9])?$/;
 
@@ -90,11 +92,19 @@ var config = {
 
 // if --production is passed, ng-annotate and uglify the code
 if (argv.production) {
-  console.info('This might take a while...');
+  console.info('Production build. This might take a while...');
 
   config.plugins.unshift(new webpack.optimize.UglifyJsPlugin({mangle: true}));
   config.plugins.unshift(new NgAnnotatePlugin({add: true}));
   config.plugins.unshift(new webpack.NoErrorsPlugin());
+}
+
+// if --electron is passed, modify the base href
+if (argv.electron) {
+  console.info('Electron build. This might take a while...');
+
+  config.plugins.unshift(new HtmlWebpackPlugin());
+  config.plugins.unshift(new BaseHrefWebpackPlugin({baseHref: '.'}));
 }
 
 module.exports = config;
