@@ -1,7 +1,8 @@
 {
-  "name": "swagger-editor",
+  "name": "swagger-editor-electron",
+  "author": "G Buchenberger <buchenberger@gmail.com>",
   "version": "2.10.4",
-  "homepage": "https://github.com/swagger-api/swagger-editor",
+  "homepage": "https://github.com/swagger-api/swagger-editor-gitlab",
   "description": "Swagger Editor",
   "license": "Apache-2.0",
   "files": [
@@ -27,7 +28,6 @@
   "devDependencies": {
     "angular": "^1.5.7",
     "angular-cookies": "^1.5.7",
-    "angular-electron": "file:electron",
     "angular-json-schema-form": "^0.1.4",
     "angular-marked": "^1.2.1",
     "angular-mocks": "^1.5.7",
@@ -42,6 +42,7 @@
     "chai": "^3.5.0",
     "css-loader": "^0.26.1",
     "electron": "^1.6.2",
+    "electron-builder": "^17.0.1",
     "es6-promise": "^4.0.5",
     "es6-shim": "^0.35.0",
     "eslint": "^2.13.1",
@@ -115,11 +116,30 @@
     "test": "npm run unit-test && npm run e2e-test",
     "lint": "eslint . --format 'node_modules/eslint-friendly-formatter'",
     "gh-pages": "./gh-pages.sh",
-    "build:electron": "webpack --hide-modules --stats=errors-only",
-    "electron": "npm run build:electron && electron ."
+    "prebuild:electron": "rm -rf bundles/**",
+    "build:electron": "webpack --electron --hide-modules --stats=errors-only",
+    "electron": "npm run build:electron && electron .",
+    "asar:app": "asar e dist/linux-unpacked/resources/app.asar tmp",
+    "pack": "build --dir",
+    "predist": "npm run clean",
+    "dist": "build --projectDir ."
   },
-  "dependencies": {
-    "angular-tree-control": "^0.2.28"
-  },
-  "main"    : "electron.js"
+  "dependencies": {},
+  "main": "main.js",
+  "build": {
+    "appId": "buchenberg.swagger.editor",
+    "linux": {
+      "category": "development",
+      "target": "deb"
+    },
+    "files": [
+      "bundles/**/*",
+      "config/**/*",
+      "images/**/*",
+      "styles/**/*",
+      "views/**/*",
+      "templates/**/*",
+      "*.html",
+      "main.js"]
+  }
 }

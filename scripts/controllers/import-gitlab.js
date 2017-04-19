@@ -65,7 +65,7 @@ SwaggerEditor.controller('GitlabImportCtrl', function FileImportCtrl($scope,
         return {name: branch.name};
       });
     }, function errorCallback(response) {
-      console.error(`Error retrieving projects ${response}`);
+      console.error('Error retrieving projects ', response);
     });
   };
 
@@ -87,7 +87,7 @@ SwaggerEditor.controller('GitlabImportCtrl', function FileImportCtrl($scope,
       });
       console.log($scope.filetree);
     }, function errorCallback(response) {
-      console.error(`Error retrieving file tree ${response}`);
+      console.error('Error retrieving file tree ', response);
     });
   };
 
