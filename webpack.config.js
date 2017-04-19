@@ -103,9 +103,6 @@ if (argv.electron) {
 
   config.output.path = path.join(__dirname, 'bundles');
   config.output.publicPath = 'bundles/';
-  config.plugins.unshift(new webpack.optimize.UglifyJsPlugin({mangle: true}));
-  config.plugins.unshift(new NgAnnotatePlugin({add: true}));
-  config.plugins.unshift(new webpack.NoErrorsPlugin());
 }
 
 module.exports = config;
