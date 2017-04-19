@@ -116,7 +116,7 @@
     "test": "npm run unit-test && npm run e2e-test",
     "lint": "eslint . --format 'node_modules/eslint-friendly-formatter'",
     "gh-pages": "./gh-pages.sh",
-    "prebuild:electron": "rm -rf bundles/**",
+    "prebuild:electron": "rm -rf bundles/** && rm -rf dist/**",
     "build:electron": "webpack --electron --hide-modules --stats=errors-only",
     "electron": "npm run build:electron && electron .",
     "asar:app": "asar e dist/linux-unpacked/resources/app.asar tmp",
@@ -132,11 +132,16 @@
       "category": "development",
       "target": "deb"
     },
+    "mac": {
+      "category": "development",
+      "target": "dmg",
+      "icon": "build/icon.icns"
+    },
     "files": [
       "bundles/**/*",
-      "config/**/*",
+      "config/**/*.json",
       "images/**/*",
-      "styles/**/*",
+      "styles/**/*.css",
       "views/**/*",
       "templates/**/*",
       "*.html",

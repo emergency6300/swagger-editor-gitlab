@@ -10,7 +10,6 @@ require('angular-json-schema-form');
 require('json-editor');
 require('ngstorage');
 require('angular-ui-ace');
-require('angular-tree-control');
 
 window.SwaggerEditor = angular.module('SwaggerEditor', [
   require('angular-sanitize'),
@@ -22,8 +21,7 @@ window.SwaggerEditor = angular.module('SwaggerEditor', [
   require('jsonformatter'),
   'ui.ace',
   'mohsen1.schema-form',
-  'ngStorage',
-  'treeControl'
+  'ngStorage'
 ]);
 
 require('scripts/config.js');
