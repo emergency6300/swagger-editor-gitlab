@@ -47,7 +47,7 @@ var config = {
       {
         test: /\.png$/,
         loader: "url",
-        query: { mimetype: "image/png" }
+        query: {mimetype: "image/png"}
       },
       {
         test: /\.less$/,
@@ -92,8 +92,8 @@ var config = {
 if (argv.production) {
   console.info('Production build. This might take a while...');
 
-  config.plugins.unshift(new webpack.optimize.UglifyJsPlugin({ mangle: true }));
-  config.plugins.unshift(new NgAnnotatePlugin({ add: true }));
+  config.plugins.unshift(new webpack.optimize.UglifyJsPlugin({mangle: true}));
+  config.plugins.unshift(new NgAnnotatePlugin({add: true}));
   config.plugins.unshift(new webpack.NoErrorsPlugin());
 }
 
@@ -103,7 +103,9 @@ if (argv.electron) {
 
   config.output.path = path.join(__dirname, 'bundles');
   config.output.publicPath = 'bundles/';
-
+  config.plugins.unshift(new webpack.optimize.UglifyJsPlugin({mangle: true}));
+  config.plugins.unshift(new NgAnnotatePlugin({add: true}));
+  config.plugins.unshift(new webpack.NoErrorsPlugin());
 }
 
 module.exports = config;
