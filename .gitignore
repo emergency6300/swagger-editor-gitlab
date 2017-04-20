@@ -1,6 +1,6 @@
 .DS_Store
 .tmp
-bundles/
+# bundles/
 node_modules/grunt-newer/.cache
 .sass-cache
 .grunt
