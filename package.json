@@ -130,7 +130,8 @@
     "appId": "buchenberg.swagger.editor",
     "linux": {
       "category": "development",
-      "target": "deb"
+      "target": "deb",
+      "icon": "build"
     },
     "mac": {
       "category": "development",
