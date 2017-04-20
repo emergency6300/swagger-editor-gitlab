@@ -15,9 +15,9 @@ var config = {
   },
 
   output: {
-    path: path.join(__dirname, 'dist'),
+    path: path.join(__dirname, 'bundles'),
     filename: 'bundle.js',
-    publicPath: 'dist/'
+    publicPath: 'bundles/'
   },
 
   resolve: {
@@ -97,12 +97,5 @@ if (argv.production) {
   config.plugins.unshift(new webpack.NoErrorsPlugin());
 }
 
-// if --electron is passed, modify the base href
-if (argv.electron) {
-  console.info('Electron build. This might work...');
-
-  config.output.path = path.join(__dirname, 'bundles');
-  config.output.publicPath = 'bundles/';
-}
 
 module.exports = config;

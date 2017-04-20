@@ -106,7 +106,7 @@
     "node": ">=5.8.0"
   },
   "scripts": {
-    "clean": "rm -rf dist/**",
+    "clean": "rm -rf bundles/**",
     "prebuild": "npm run clean",
     "build": "webpack --production --hide-modules --stats=errors-only",
     "unit-test": "karma start test/unit/karma.conf.js --single-run=true",
@@ -116,12 +116,9 @@
     "test": "npm run unit-test && npm run e2e-test",
     "lint": "eslint . --format 'node_modules/eslint-friendly-formatter'",
     "gh-pages": "./gh-pages.sh",
-    "prebuild:electron": "rm -rf bundles/** && rm -rf dist/**",
-    "build:electron": "webpack --electron --hide-modules --stats=errors-only",
-    "electron": "npm run build:electron && electron .",
-    "asar:app": "asar e dist/linux-unpacked/resources/app.asar tmp",
+    "electron": "npm run build && electron .",
     "pack": "build --dir",
-    "predist": "npm run clean",
+    "predist": "rm -rf dist/**",
     "dist": "build --projectDir ."
   },
   "dependencies": {},
