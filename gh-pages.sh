@@ -10,7 +10,7 @@ echo '>> rm -rf node_modules'
 rm -rf node_modules
 
 echo '>> npm install'
-npm install
+yarn
 
 echo '>> git checkout gh-pages'
 git checkout gh-pages
