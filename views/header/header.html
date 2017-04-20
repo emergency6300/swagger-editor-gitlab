@@ -34,6 +34,13 @@
         </li>
         <li class="divider"></li>
         <li>
+          <a dropdown-toggle ng-click="openImportGitlab()" tabindex="-1" track-event="file import gitlab"><i class="fa fa-gitlab"></i>&nbsp;<span>Import from Gitlab&hellip;</span></a>
+        </li>
+        <li>
+          <a dropdown-toggle ng-click="openUpdateGitlab()" tabindex="-1" track-event="file update gitlab"><i class="fa fa-gitlab"></i>&nbsp;<span>Push to Gitlab&hellip;</span></a>
+        </li>
+        <li class="divider"></li>
+        <li>
           <a download="swagger.yaml" data-downloadurl="{{yamlDownloadUrl}}"
             href="{{yamlDownloadHref}}" tabindex="-1" track-event="file download yaml"><i class="fa fa-download"></i>&nbsp;<span>Download YAML</span></a>
         </li>

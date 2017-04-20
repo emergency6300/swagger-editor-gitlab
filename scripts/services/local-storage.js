@@ -6,9 +6,11 @@ var angular = require('angular');
 SwaggerEditor.service('LocalStorage', function LocalStorage($localStorage,
   $rootScope) {
   var storageKey = 'SwaggerEditorCache';
+  var metaStorageKey = 'Gitlab';
   var changeListeners = {};
 
   $localStorage[storageKey] = $localStorage[storageKey] || {};
+  $localStorage[metaStorageKey] = $localStorage[metaStorageKey] || {};
 
   /*
    *
@@ -32,6 +34,20 @@ SwaggerEditor.service('LocalStorage', function LocalStorage($localStorage,
       if (key === 'yaml') {
         $rootScope.progressStatus = 'success-saved';
       }
+    }, 100)();
+  };
+
+    /*
+   *
+  */
+  var saveMeta = function(key, value) {
+    if (value === null) {
+      return;
+    }
+    _.debounce(function() {
+      window.requestAnimationFrame(function() {
+        $localStorage[metaStorageKey][key] = value;
+      });
     }, 100)();
   };
 
@@ -61,6 +77,7 @@ SwaggerEditor.service('LocalStorage', function LocalStorage($localStorage,
   };
 
   this.save = save;
+  this.saveMeta = saveMeta;
   this.reset = $localStorage.$reset;
   this.load = load;
   this.addChangeListener = addChangeListener;

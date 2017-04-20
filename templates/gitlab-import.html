@@ -1,0 +1,35 @@
+<div class="modal-header">
+  <h3 class="modal-title">Import From Gitlab</h3>
+</div>
+<div class="modal-body">
+  <!--<div treecontrol class="tree-classic" tree-model="dataForTheTree" options="treeOptions" on-selection="showSelected(node)"
+    selected-node="node1">
+    employee: {{node.name}} age {{node.age}}
+  </div>-->
+  <div class="form-group">
+    <label for="selectedProject">Project</label>
+  <select class="form-control" ng-model="selectedProject" ng-change="fetchBranches()" ng-options="item.name for item in items">
+  </select>
+  </div>
+  <div ng-show="projectSelected" class="form-group">
+    <label for="selectedBranch">Branch</label>
+  <select class="form-control" ng-model="selectedBranch" ng-change="fetchFiletree()" ng-options="branch.name for branch in branches">
+  </select>
+  </div>
+  <div ng-show="branchSelected" class="form-group">
+    <label for="selectedFilepath">File Path</label>
+  <select class="form-control" ng-model="selectedFile" ng-options="file.path for file in filetree">
+  </select>
+  </div>
+  <p class="error" ng-if="error">
+    <i class="fa fa fa-times"></i> Error loading URL:
+    <pre ng-if="error">{{error | json}}</pre>
+  </p>
+  <p ng-if="fetching"><i class="fa fa-spinner fa-pulse"></i> Fetching</p>
+  <p class="can-import" ng-if="canImport"><i class="fa fa-check"></i> Valid URL</p>
+</div>
+<div class="modal-footer">
+  <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+  <button class="btn btn-warning" ng-click="fetch(selectedProject.id, selectedFile.path, selectedBranch.name)">Fetch</button>
+  <button class="btn btn-primary" ng-click="ok()" ng-disabled="!canImport">Import</button>
+</div>

@@ -52,10 +52,10 @@ var config = {
       {
         test: /\.less$/,
         loader: ExtractTextPlugin.extract(
-                    'css?sourceMap' +
-                    // minimize CSS in producion
-                    (argv.production ? '&minimize' : '') +
-                    '!less?sourceMap'
+          'css?sourceMap' +
+          // minimize CSS in producion
+          (argv.production ? '&minimize' : '') +
+          '!less?sourceMap'
         )
       },
       {
@@ -90,11 +90,19 @@ var config = {
 
 // if --production is passed, ng-annotate and uglify the code
 if (argv.production) {
-  console.info('This might take a while...');
+  console.info('Production build. This might take a while...');
 
   config.plugins.unshift(new webpack.optimize.UglifyJsPlugin({mangle: true}));
   config.plugins.unshift(new NgAnnotatePlugin({add: true}));
   config.plugins.unshift(new webpack.NoErrorsPlugin());
+}
+
+// if --electron is passed, modify the base href
+if (argv.electron) {
+  console.info('Electron build. This might work...');
+
+  config.output.path = path.join(__dirname, 'bundles');
+  config.output.publicPath = 'bundles/';
 }
 
 module.exports = config;

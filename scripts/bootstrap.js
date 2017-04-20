@@ -9,7 +9,9 @@ $(function() {
   var embeddedDefaults = window.$$embeddedDefaults;
   var pathname = window.location.pathname;
 
-  if (!_.endsWith(pathname, '/')) {
+  if (_.endsWith(pathname, 'index.html')) {
+    pathname = pathname.slice(0, -10);
+  } else if (!_.endsWith(pathname, '/')) {
     pathname += '/';
   }
 
@@ -45,6 +47,12 @@ $(function() {
 
       $templateCache.put('templates/file-import.html',
         require('templates/file-import.html'));
+
+      $templateCache.put('templates/gitlab-import.html',
+        require('templates/gitlab-import.html'));
+
+      $templateCache.put('templates/gitlab-update.html',
+        require('templates/gitlab-update.html'));
 
       $templateCache.put('templates/import.html',
         require('templates/import.html'));

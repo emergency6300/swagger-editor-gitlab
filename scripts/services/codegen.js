@@ -18,6 +18,12 @@ SwaggerEditor.service('Codegen', function Codegen($http, defaults, Storage,
     });
   };
 
+  // fetch(apiReleasesURL)
+  //     .then(response => response.json())
+  //     .then(parseGithubApiLatestChannelVersions)
+  //     .then(notify)
+  //     .catch(error => console.error('Error while fetching released from GitHub', error))
+
   this.getClients = function() {
     if (!defaults.codegen.clients) {
       return new Promise(function(resolve) {

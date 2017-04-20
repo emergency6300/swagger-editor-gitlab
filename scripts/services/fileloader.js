@@ -2,11 +2,12 @@
 
 var angular = require('angular');
 var _ = require('lodash');
+var metadata = {};
 
 /*
  * File loader service to load file from a URL or string
 */
-SwaggerEditor.service('FileLoader', function FileLoader($http, defaults, YAML) {
+SwaggerEditor.service('FileLoader', function FileLoader($http, defaults, YAML, Storage) {
   /**
    * Load a file from URL
    *
@@ -42,6 +43,30 @@ SwaggerEditor.service('FileLoader', function FileLoader($http, defaults, YAML) {
           });
         } else {
           load(resp.data).then(resolve, reject);
+        }
+      }, reject);
+    });
+  }
+
+  /**
+  * Load a file from Gitlab
+  *
+  * @param {string} url - the URL to load from
+  @param {string} projectid - the project identifier
+  * @return {Promise} - resolves to content of the file
+ */
+  function loadFromGitlab(url, projectid) {
+    metadata.projectid = projectid;
+    return new Promise(function(resolve, reject) {
+      $http({
+        method: 'GET',
+        url: url,
+        headers: {
+          accept: 'application/x-yaml,text/yaml,application/json,*/*'
+        }
+      }).then(function(resp) {
+        if (angular.isObject(resp.data)) {
+          loadGithub(resp.data).then(resolve, reject);
         }
       }, reject);
     });
@@ -85,7 +110,50 @@ SwaggerEditor.service('FileLoader', function FileLoader($http, defaults, YAML) {
     });
   }
 
+    /**
+   * takes a JSON or YAML string, returns YAML string
+   *
+   * @param {string} data - the Gitlab file object
+   * @return {Promise} YAML string and metadata
+   * @throws {TypeError} - resolves to a YAML string
+  */
+  function loadGithub(data) {
+    const string = window.atob(data.content);
+    return new Promise(function(resolve, reject) {
+      if (!_.isString(string)) {
+        throw new TypeError('load function only accepts a string');
+      }
+      metadata.filepath = data.file_path;
+      metadata.ref = data.ref;
+      console.log('loadGithub Value is ' + JSON.stringify(metadata) + 'saving...');
+      Storage.saveMeta('metadata', metadata);
+
+      try {
+        JSON.parse(string);
+      } catch (error) {
+        // Do not change to JSON if it is YAML, and
+        // just resolve it
+        resolve(string);
+        return;
+      }
+
+      YAML.load(string, function(error, json) {
+        if (error) {
+          return reject(error);
+        }
+
+        YAML.dump(json, function(error, yamlString) {
+          if (error) {
+            return reject(error);
+          }
+          resolve(yamlString);
+        });
+      });
+    });
+  }
+
   // Load from Local file content (string)
   this.load = load;
   this.loadFromUrl = loadFromUrl;
+  this.loadFromGitlab = loadFromGitlab;
 });
