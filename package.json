@@ -126,14 +126,18 @@
   "build": {
     "appId": "buchenberg.swagger.editor",
     "linux": {
-      "category": "development",
+      "category": "programming",
       "target": "deb",
       "icon": "build"
     },
     "mac": {
-      "category": "development",
+      "category": "programming",
       "target": "dmg",
       "icon": "build/icon.icns"
+    },
+     "win": {
+      "target": "nsis",
+      "icon": "build/icon.ico"
     },
     "files": [
       "bundles/**/*",
