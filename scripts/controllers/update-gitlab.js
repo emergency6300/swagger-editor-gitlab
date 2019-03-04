@@ -20,9 +20,9 @@ SwaggerEditor.controller('GitlabUpdateCtrl', function GitlabUpdateCtrl($scope,
     if (_.startsWith(baseurl, 'http')) {
       // $scope.fetching = true;
 
-      var url = baseurl + "/api/v3/projects/" + projectid +
-      "/repository/files?file_path=" + filepath +
-      "&branch_name=" + branchName +
+      var url = baseurl + "/api/v4/projects/" + projectid +
+      "/repository/files/" + filepath +
+      "?branch_name=" + branchName +
       "&content=" + content +
       "&encoding=base64" +
       "&commit_message=" + commitMessage +

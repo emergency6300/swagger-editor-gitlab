@@ -8,7 +8,7 @@ SwaggerEditor.controller('GitlabImportCtrl', function FileImportCtrl($scope,
   $rootScope, $state, FileLoader, Storage, Preferences, $http) {
   const baseurl = Preferences.get('gitlabBaseUrl');
   const token = Preferences.get('gitlabToken');
-  const projectsUrl = baseurl + "/api/v3/projects?private_token=" + token;
+  const projectsUrl = baseurl + "/api/v4/projects?private_token=" + token;
   var results;
   $scope.projectSelected = false;
   $scope.branchSelected = false;
@@ -52,7 +52,7 @@ SwaggerEditor.controller('GitlabImportCtrl', function FileImportCtrl($scope,
 
   var fetchBranches = function() {
     var branchesUrl = baseurl +
-    "/api/v3/projects/" +
+    "/api/v4/projects/" +
     $scope.selectedProject.id +
     "/repository/branches?private_token=" +
     token;
@@ -72,7 +72,7 @@ SwaggerEditor.controller('GitlabImportCtrl', function FileImportCtrl($scope,
   var fetchFiletree = function() {
     $scope.branchSelected = true;
     var filesUrl = baseurl +
-    "/api/v3/projects/" +
+    "/api/v4/projects/" +
     $scope.selectedProject.id +
     "/repository/tree?recursive=true&ref_name=" +
     $scope.selectedBranch.name +
@@ -108,9 +108,9 @@ SwaggerEditor.controller('GitlabImportCtrl', function FileImportCtrl($scope,
     $scope.canImport = false;
     if (_.startsWith(baseurl, 'http')) {
       $scope.fetching = true;
-      var url = baseurl + "/api/v3/projects/" +
-      projectid + "/repository/files?file_path=" + filepath +
-      "&ref=" + ref + "&private_token=" + token;
+      var url = baseurl + "/api/v4/projects/" +
+      projectid + "/repository/files/" + filepath +
+      "?ref=" + ref + "&private_token=" + token;
       FileLoader.loadFromGitlab(url, projectid).then(function(data) {
         $scope.$apply(function() {
           results = data;
