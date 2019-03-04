@@ -12,7 +12,7 @@ SwaggerEditor.controller('GitlabUpdateCtrl', function GitlabUpdateCtrl($scope,
     $scope.error = null;
     const baseurl = Preferences.get('gitlabBaseUrl');
     const token = Preferences.get('gitlabToken');
-    const filepath = $localStorage.Gitlab.metadata.filepath + ".yaml";
+    const filepath = $localStorage.Gitlab.metadata.filepath;// + ".yaml";
     const projectid = $localStorage.Gitlab.metadata.projectid;
     const branchName = $localStorage.Gitlab.metadata.ref;
     var content = window.btoa($localStorage.SwaggerEditorCache.yaml);
